@@ -1,4 +1,7 @@
+import java.util.LinkedHashSet;
 import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.TreeSet;
 
 class OrganizarPrioridad {
 
@@ -9,8 +12,13 @@ class OrganizarPrioridad {
     public static void main(String[] args) {
         // Código para organizar prioridades
 
-        String[] valores = { "1001:1", "1002:1", "1002:2", "1003:3", "1004:4" };
+        String[] valores = { "1002:1", "1001:1", "1003:3", "1004:4", "1002:2" };
 
-        PriorityQueue pq = new PriorityQueue<>();
+        Set<String> lhs = new TreeSet<>();
+
+        for (String val : valores) {
+            lhs.add(val);
+        }
+        lhs.forEach(System.out::println);
     }
 }
