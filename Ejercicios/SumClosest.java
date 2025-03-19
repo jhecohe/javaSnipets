@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 class SumClosest {
 
     // Input: nums = [-1,2,1,-4], target = 1
@@ -14,14 +10,12 @@ class SumClosest {
         int len = nums.length;
 
         int windowSum = 2;
-        int maxStartIndex = 0;
         int maxSum = windowSum;
 
         for(int i=0; i<len-target;i++){
             windowSum = windowSum - nums[1] + nums[i+target];
             if(windowSum > maxSum){
-                maxSum = windowSum;
-                maxStartIndex = i+1;       }
+                maxSum = windowSum;     }
         }
         return maxSum;
     }
