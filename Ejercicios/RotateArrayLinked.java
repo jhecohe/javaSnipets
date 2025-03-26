@@ -2,9 +2,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-class RotateArray {
+class RotateArrayLinked {
 
-    // https://leetcode.com/problems/rotate-array/?envType=study-plan-v2&envId=top-interview-150
+    // https://leetcode.com/problems/rotate-array/?envType=study-plan-v2&envId=top-interview-15
 
     public static void main(String[] args) {
         Integer[] arr = new Integer[] { 1, 2, 3, 4, 5, 6, 7 };
@@ -25,7 +25,6 @@ class RotateArray {
             index++;
         }
 
-        // list.toArray(nums);
         Iterator<Integer> num = list.iterator();
 
         int i = 0;
