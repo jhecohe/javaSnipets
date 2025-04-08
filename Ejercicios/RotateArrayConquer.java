@@ -17,7 +17,7 @@ class RotateArrayConquer {
     }
 
     public static void rotate(int[] nums, int k) {
-        k = k / nums.length;
+        k = k % nums.length;
         invertArray(nums, 0, nums.length-1);
         invertArray(nums, 0, k-1);
         invertArray(nums, k, nums.length -1);
