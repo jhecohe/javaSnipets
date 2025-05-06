@@ -22,6 +22,7 @@ class VillaInformacion {
                 currentZeros++;
             }
         }
+        // Este es el valor de la primera posible cantidad de cambios
         minSwaps = currentZeros;
         // Slide the window
         for (int i = totalOnes; i < n; i++) {
