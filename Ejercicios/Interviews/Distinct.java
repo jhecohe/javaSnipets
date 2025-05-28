@@ -1,5 +1,5 @@
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class Distinct {
@@ -26,7 +26,14 @@ public class Distinct {
      */
 
     public static int solution(int[] A) {
-        return 0;
+        if (A.length == 0) return 0;
+        Map<Integer, Integer> nums = new HashMap<>();
+        for (Integer num : A) {
+            if (null != nums.putIfAbsent(num, 1)) {
+                nums.put(num, nums.get(num) + 1);
+            }
+        }
+        return nums.size();
     }
 
     /*
