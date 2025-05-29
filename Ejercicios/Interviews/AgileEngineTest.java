@@ -19,7 +19,7 @@ public class AgileEngineTest {
     method, count().
     It returns Map<Long , Long> - this map should contain the number of visits
     by the user with a given ID.
-    This method accepts an array of may string, UserStats>.
+    This method accepts an array of map <string, UserStats>.
     Every map represents the total number of visits per user to a given microservice.
     There are some problems, however:
     • The map key, which is a String, should be parseable to Long - but it may not be.
