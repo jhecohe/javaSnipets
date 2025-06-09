@@ -1,7 +1,9 @@
+package Interviews;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Distinct {
+class Distinct {
 
     /*
     Write a function

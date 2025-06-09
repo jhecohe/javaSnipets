@@ -39,7 +39,7 @@ public class AgileEngineTest {
             return null;
         }
 
-        return Stream.of(visits)
+        Map<Long, Long> res = Stream.of(visits)
             .filter(Objects::nonNull)
             .map(Map::entrySet)
             .flatMap(Collection::stream)
@@ -61,6 +61,8 @@ public class AgileEngineTest {
                     value -> value.getValue().getVisitCount().get()
                 )
             );
+
+        return res;
     }
 
     public static boolean stringIsParseableToLong(String key) {

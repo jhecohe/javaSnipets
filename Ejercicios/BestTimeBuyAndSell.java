@@ -6,12 +6,6 @@ class BestTimeBuyAndSell {
         // El mayor valor de la resta de estos dos valores es lo que se retorna
         // Si la resta da un numero negativo, se retorna 0
 
-        // 012345
-        // 715364 -> 5
-        // 7[i-1] -> min
-        // 1[i] -> max
-        // min < [i] -> max = [i+1]
-
         int min = prices[0], max = prices[1], profit = max - min;
 
         for (int i = 2; i < prices.length; i++) {
