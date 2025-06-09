@@ -1,4 +1,5 @@
-package javaSnipets.utils.Comparator;
+package utils.Comparator;
+
 
 import java.util.Arrays;
 import java.util.Collection;
