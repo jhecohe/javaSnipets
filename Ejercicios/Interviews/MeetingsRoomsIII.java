@@ -1,32 +1,71 @@
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashMap;
-import java.util.PriorityQueue;
 
 public class MeetingsRoomsIII {
     
     public static int mostBooked(int n, int[][] meetings) {
         
-        PriorityQueue<Integer> unusedRooms = new PriorityQueue<>();
-        PriorityQueue<Long[]> usedRooms = new PriorityQueue<>((a, b) -> a[0] != b[0] ? Long.compare(a[0], b[0]) : Long.compare(a[1], b[1]));
+        int[] schedule = new int[n];
+        int[] countMeetings = new int[n];
 
-        for(int i=0; i<n; i++){
-            unusedRooms.offer(i);
+        Arrays.sort(meetings, Comparator.comparing(m -> m[0]));
+
+        for (int i = 0; i < meetings.length; i++) {
+            int start = meetings[i][0];
+            int end = meetings[i][1];
+            boolean booked = false;
+
+            int closest = Integer.MAX_VALUE;
+            int proxRoom = 0;
+
+            for (int j = 0; j < n; j++) {
+                if(schedule[j] < start){
+                    schedule[j] = end;
+                    countMeetings[j]++;
+                    booked = true;
+                    break;
+                }
+
+                System.out.println(closest + " > " + schedule[j]);
+                if(closest > schedule[j]){
+                    closest = schedule[j];
+                    proxRoom = j;
+                }
+            }
+
+            if(!booked) {
+                int duration = end - start;
+                schedule[proxRoom] += duration;
+                countMeetings[proxRoom]++;
+            }
         }
 
-        Arrays.stream(meetings)
-        .flatMapToInt(Arrays::stream)
-        .forEach(System.out::println);
-        return 0;
+        int maxMeet = 0;
+        int room = 0;
+        for(int i=0; i<n; i++){
+            if(maxMeet < countMeetings[i]) {
+                maxMeet = countMeetings[i];
+                room = i;
+            }
+        }
+
+        return room;
     }
 
     public static void main(String[] args) {
-        int[][] meetings = {{4,10},{1,5},{2,7},{3,4}};
+        // int[][] meetings = {{4,10},{1,5},{2,7},{3,4}}; // res 0 1,5 2,7 3,4 4,10 -> 5 7 -> 3
+        int[][] meetings = {{1,20},{2,10},{3,5},{4,9},{6,8}}; // res 1
 
-        mostBooked(2, meetings);
+        // int res = mostBooked(2, meetings);
+        int res = mostBooked(3, meetings);
 
-        HashMap<Integer, Integer> hm = new HashMap<>();
+        System.out.println(res);
+
+        System.out.println(res == 1);
     }
 }
 
@@ -90,13 +129,10 @@ Constraints:
  /*
   Algorithm
 
-    Create two priority queues, unused_rooms and used_rooms, representing the available and currently used rooms, respectively. Create an array meeting_count of size n to keep track of the number of meetings held in each room.
-    Use the heapify function to convert unused_rooms into a min heap, ensuring the room with the lowest number is at the top.
-    Iterate through the meetings sorted by start times.
-    While there are used rooms (used_rooms) and the first room's meeting has already concluded (meeting end time <= current meeting start time), remove the room from used_rooms and add it back to unused_rooms.
-    Check if there are available rooms (unused_rooms). If available, pop the room with the lowest number from unused_rooms and allocate the meeting to that room. Update used_rooms with the meeting end time and the room number.
-    If no available rooms, pop the room with the earliest availability time from used_rooms. Adjust the availability time for the room to accommodate the delayed meeting. Update used_rooms with the adjusted availability time and room number.
-    Increment the meeting count for the allocated room.
+    Initialize two arrays, room_availability_time and meeting_count, both of size n, to keep track of the availability time for each room and the count of meetings held in each room, respectively.
+    Iterate through each meeting in the sorted order based on their start times.
+    For each meeting, find the earliest available room by iterating through the room_availability_time array. If a room is available (its availability time is less than or equal to the current meeting's start time), allocate the meeting to that room, update the meeting count for that room, and set the room's availability time to the meeting's end time. Break out of the loop.
+    If no available room is found (i.e., found_unused_room is False), find the room with the earliest availability time (min_room_availability_time). Update the availability time for that room to accommodate the delayed meeting, and increment the meeting count for that room.
     After processing all meetings, return the index of the room with the maximum meeting count using. If there are multiple rooms with the same maximum meeting count, return the room with the lowest index.
 
   */
