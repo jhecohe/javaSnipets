@@ -27,6 +27,10 @@ public class Main {
         //     .stream()
         //     .filter(e -> e.dept().equals("Development") && e.salary() > 80000)
         //     .collect(Collectors.toMap(Employee::id, Employee::name));
+
+        //     map.entrySet()
+        //     .stream()
+        //     .forEach(m -> System.out.println(m.getKey() + " - " + m.getValue()));
         // System.out.println(map);
 
         // Map stream with distinct
@@ -79,10 +83,10 @@ public class Main {
         // Map<String, List<String>> groupByGendarListName = employees.stream()
         // .collect(Collectors.groupingBy(Employee::gender, Collectors.mapping(Employee::name, Collectors.toList())));
 
-        Map<String, Long> genCount = employees.stream()
-        .collect(Collectors.groupingBy(Employee::gender, Collectors.counting()));
+        // Map<String, Long> genCount = employees.stream()
+        // .collect(Collectors.groupingBy(Employee::gender, Collectors.counting()));
 
-        System.out.println(genCount);
+        // System.out.println(genCount);
 
 
     }
